@@ -33,6 +33,7 @@ When added together, The Derivative term dampens the oscillation and overshootin
 I learned of this issue when It caused my whole servos to start glitching far left, far right, far up and  far down. This means that before even putting in the (D) term, you would have to add a low pass filter to the error to get rid of the noise coming from the camera.
 
 The filter I used is Simple Exponential Smoothing
+
 <img width="396" height="62" alt="image" src="https://github.com/user-attachments/assets/9c8e0092-9dc8-4d54-8a3d-de3af2b5997a" />
 
 In my case:
