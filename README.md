@@ -19,6 +19,7 @@ The output (Correction) is proportional to the error. Meaning wherever that erro
 Proportional control is really good to be used on its own with the correct tuning however there are some caveats to look out for:
   - Overshoot
   - Oscillations
+    
     [![What does Oscillations and Jittering look like?](<img width="348" height="553" alt="image" src="https://github.com/user-attachments/assets/60fb20a3-53fb-4ac4-90b5-5e64c725417c" />
 )](https://www.youtube.com/shorts/U7X-p9T4rxE)
 
