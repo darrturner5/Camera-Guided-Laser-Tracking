@@ -11,9 +11,9 @@ Camera Guided Laser Tracking project that features a pan and tilt motions using 
 
 ## Propotional - Derivative Controller
 First I want to introduce a brief discussion on what each P and D terms actually do in the system. Starting with P control, the equation is U = Kp * Error
- -U = Output
- -Kp = Gain (How strong the correction is)
- -Error = Measured Value - Setpoint (In my case the Measured value is where on screen is the Pencil Sharpener - the middle of the screen being my setpoint.)
+ - U = Output
+ - Kp = Gain (How strong the correction is)
+ - Error = Measured Value - Setpoint (In my case the Measured value is where on screen is the Pencil Sharpener - the middle of the screen being my setpoint.)
 
 The output (Correction) is proportional to the error. Meaning wherever that error is, the system makes a correction to match the error. This is an ongoing process as these conditions change as the object moves. This is what we call a Closed Loop system.
 Proportional control is really good to be used on its own with the correct tuning however there are some caveats to look out for:
@@ -26,9 +26,9 @@ Proportional control is really good to be used on its own with the correct tunin
 It can cause some jittering and overcorrecting around the setpoint which can make precision things that rely on this type of control less reliable. In my project, I was seeing this effect in real time on my tilt servo. The servo would jitter and oscillate up and down when objects came to a complete stop. Since I wanted the laser to be directly onto the target, I opted for the (D) Derivative term and see if I can add this to the controller and see if it might help mitigate this issue from the P controller.
 
 The (D) term measures the rate of change of the error. The expression is Kd * de/dt
- -Kd = Gain
- -de = change in error (current error - previous error)
- -dt = time
+ - Kd = Gain
+ - de = change in error (current error - previous error)
+ - dt = time
 
 When added together, The Derivative term dampens the oscillation and overshooting problem but comes with a whole other set of problems:
  - (D) is very sensitive to any change of error (can even be one pixel)
