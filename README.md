@@ -19,7 +19,9 @@ The output (Correction) is proportional to the error. Meaning wherever that erro
 Proportional control is really good to be used on its own with the correct tuning however there are some caveats to look out for:
   - Overshoot
   - Oscillations
-    [![What does Oscillations and Jittering look like?](https://www.youtube.com/shorts/U7X-p9T4rxE)](https://www.youtube.com/shorts/U7X-p9T4rxE)
+    [![What does Oscillations and Jittering look like?](<img width="348" height="553" alt="image" src="https://github.com/user-attachments/assets/60fb20a3-53fb-4ac4-90b5-5e64c725417c" />
+)](https://www.youtube.com/shorts/U7X-p9T4rxE)
+
 It can cause some jittering and overcorrecting around the setpoint which can make precision things that rely on this type of control less reliable. In my project, I was seeing this effect in real time on my tilt servo. The servo would jitter and oscillate up and down when objects came to a complete stop. Since I wanted the laser to be directly onto the target, I opted for the (D) Derivative term and see if I can add this to the controller and see if it might help mitigate this issue from the P controller.
 
 The (D) term measures the rate of change of the error. The expression is Kd * de/dt
