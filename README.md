@@ -37,16 +37,16 @@ The filter I used is Simple Exponential Smoothing
 <img width="396" height="62" alt="image" src="https://github.com/user-attachments/assets/9c8e0092-9dc8-4d54-8a3d-de3af2b5997a" />
 
 In my case:
-St = smoothed error
-Alpha = smoothing factor
-Y = error
-St-1 = Previous error
+- St = smoothed error
+- Alpha = smoothing factor
+- Y = error
+- St-1 = Previous error
 
 In my code:
-output = error * 0.7 + (1-0.7) * prev_error
-prev_error = error
+- output = error * 0.7 + (1-0.7) * prev_error
+- prev_error = error
 
 When combined, You get the PD Controller:
 
-U = Kpe * error + Kd*de/dt
+U = Kp * error + Kd*de/dt
 
