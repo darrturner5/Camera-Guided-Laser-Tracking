@@ -64,6 +64,7 @@ U = Kp * error + Kd*de/dt
 
 ## Notes
 Upon using the (D) Term Ive learned to use Kd gain relatively small. I started my gain around 0.1 and did not know what to expect. Instantly my servos made full revolutions left, right, up, and down. 
+
 [![What does Derivative Noise Amplification look like in a system?](<img width="348" height="553" alt="image" src="https://github.com/user-attachments/assets/60fb20a3-53fb-4ac4-90b5-5e64c725417c" />
 )](https://www.youtube.com/watch?v=Cp3NwTRCM4U)
 
