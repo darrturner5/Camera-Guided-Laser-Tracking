@@ -1,0 +1,51 @@
+# include <Servo.h> 
+
+Servo servoX;
+Servo servoY;
+
+
+int buzzerPin = 9;
+
+String input;
+
+void setup(){
+Serial.begin(115200);
+
+servoX.attach(5);
+servoY.attach(6);
+
+pinMode(buzzerPin, OUTPUT);
+digitalWrite(buzzerPin, LOW);
+
+servoX.write(100);
+servoY.write(90);
+
+}
+
+
+void loop() {
+  if (Serial.available()) {
+    input = Serial.readStringUntil('\n');
+
+    int comma1 = input.indexOf(',');
+    int comma2 = input.lastIndexOf(',');
+
+    if (comma1 > 0 && comma2 > comma1) {
+
+      int xAngle = input.substring(0, comma1).toInt();
+      int yAngle = input.substring(comma1 +1, comma2).toInt();
+      int lock = input.substring(comma2 + 1).toInt();
+
+      servoX.write(constrain(xAngle, 0, 180));
+      servoY.write(constrain(yAngle, 0, 180));
+
+      digitalWrite(buzzerPin, lock ? HIGH : LOW);
+
+      if lock = 1
+
+    }
+
+  }
+
+}
+  
