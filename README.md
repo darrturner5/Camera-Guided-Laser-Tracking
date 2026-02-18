@@ -9,6 +9,8 @@ Camera Guided Laser Tracking project that features a pan and tilt motions using 
  - Active Buzzer
  - Logitech C270 1280x720p
 
+ My Logitech C270 captures frames at about 30FPS. I applied a Mask to detect only teal colors to track my pencil sharpener. The mask makes everything in the background black, except the teal color. Then I was able to detect contours of the shape of the pencil sharpener which allowed me to calculate the centroid using the moments function. This is important because this tells us our measured value which we can use to find the error and put into the controller. The error is filtered and normalized into a -1 to 1 scale to make the PD Controller easier to tune. I added servo clamps to prevent damage to the servos and buzzer logic that locks after 2 seconds. All of this is then sent over the Serial to Arduino.
+
 ![IMG_8340](https://github.com/user-attachments/assets/9d49a03f-f897-4603-bac9-5ddf9d058d10)
 ![IMG_8338](https://github.com/user-attachments/assets/bd765783-9e30-4e34-b23d-202bcfb552c9)
 *Wiring could be a little neater.... But atleast it works!
@@ -58,4 +60,33 @@ In my code:
 When combined, You get the PD Controller:
 
 U = Kp * error + Kd*de/dt
+
+
+## Notes
+Upon using the (D) Term Ive learned to use Kd gain relatively small. I started my gain around 0.1 and did not know what to expect. Instantly my servos made full revolutions left, right, up, and down. 
+[![What does Derivative Noise Amplification look like in a system?](<img width="348" height="553" alt="image" src="https://github.com/user-attachments/assets/60fb20a3-53fb-4ac4-90b5-5e64c725417c" />
+)](https://www.youtube.com/watch?v=Cp3NwTRCM4U)
+
+While most of this occured due to the noise amplification of the random pixels from the camera, The Derivative term is still very sensitive even after the filtering. But did help significantly in the amount of noise that it was amplifying and made it a bit more stable.
+After seeing the dmage that this term can cause, I opted for a clamp that wouldnt exceed -50, 50 pixels per frame.
+
+Buzzer Logic:
+
+For the Tuning Process:
+ - Started with P Control Tuning only, Kd = 0
+ - tuned until there was slight oscillation but still fast enough to track errors
+ - started with an entrememly low Kd Gain
+
+## Challenges
+- Laser did not line up exactly with the target
+- Some lag behind the servos
+- Tuning process
+- Mechanical mounting of the Pan and Tilt Servos
+- Wire Management
+
+## How can I improve?
+- Finite State Logic with OLED
+  
+This the one thing Ill definitely play around with. I never used an OLED Screen before and would definitely give that a shot. Especially matching with my buzzer logic.
+
 
