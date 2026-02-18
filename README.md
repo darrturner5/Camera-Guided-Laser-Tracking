@@ -11,6 +11,7 @@ Camera Guided Laser Tracking project that features a pan and tilt motions using 
 
 ![IMG_8340](https://github.com/user-attachments/assets/9d49a03f-f897-4603-bac9-5ddf9d058d10)
 ![IMG_8338](https://github.com/user-attachments/assets/bd765783-9e30-4e34-b23d-202bcfb552c9)
+*Wiring could be a little neater.... But atleast it works!
 ![IMG_8339](https://github.com/user-attachments/assets/898c2137-c6b4-4951-90e7-a3b86956eaff)
 
 ## Propotional - Derivative Controller
