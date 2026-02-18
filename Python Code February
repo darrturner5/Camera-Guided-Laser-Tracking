@@ -1,0 +1,149 @@
+import numpy as np
+import cv2
+import serial
+from PIL import Image
+import time
+
+
+lock_width = 350 # pixels
+lock_time = 2.0 # seconds
+lock_timer = 0.0
+
+
+#Gain tuning
+dt = 0.033 # Time per each frame 30fps
+prev_error_x = 0
+prev_error_y = 0
+KpY = 0.3 # Proportional Control Gain of Y
+KpX = 0.6 # Proportional Control Gain of X
+KdY = 0.0006 # Derivative Gain of Y
+KdX = 0.0006 # Derivative Gain of X
+#Filter variables
+alpha = 0.8
+prev_filter_x = 0
+prev_filter_y = 0
+#Camera + Serial
+teal = [128,128,0] #BGR (YOU CAN CHANGE TO TRACK ANY COLOR IN BGR)
+frame_height = 720
+frame_width = 1280
+cam = cv2.VideoCapture(0)
+cam.set(3,1280)
+cam.set(4,720)
+Arduino = serial.Serial("/dev/cu.usbmodemF0F5BD4F47D02",115200)
+time.sleep(1)
+print("ON")
+
+prev_time = time.time()
+
+
+while True:
+    ret, frame = cam.read()
+    if not ret:
+        break
+
+
+    frameContour = frame.copy()
+
+    def get_limits(color):
+        c = np.uint8([[color]])
+        hsvC = cv2.cvtColor(c, cv2.COLOR_BGR2HSV)
+
+        lowerLimit = hsvC[0][0][0] - 10, 100, 100
+        upperLimit = hsvC[0][0][0] + 10, 255, 255
+
+        lowerLimit = np.array(lowerLimit, dtype=np.uint8)
+        upperLimit = np.array(upperLimit, dtype=np.uint8)
+
+        return lowerLimit, upperLimit
+
+    hsvImage = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+    lowerLimit, upperLimit = get_limits(teal)
+
+
+    mask = cv2.inRange(hsvImage,lowerLimit, upperLimit)
+
+    # Bounding box
+    mask_ = Image.fromarray(mask) # converting image from numpy array to pillow
+    bbox = mask_.getbbox()
+    if bbox is not None:
+        x1, y1, x2,y2 = bbox
+        frame = cv2.rectangle(frame, (x1, y1), (x2, y2), (0,0,255), 5)
+
+    # Contours
+    contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+
+    if contours:
+        largest = max(contours, key=cv2.contourArea)
+        contours = [c for c in contours if cv2.contourArea(c) > 200]
+
+        #Centroid Calculation
+        m = cv2.moments(largest)
+
+        if m["m00"] != 0:
+            cx = (m["m10"]/m["m00"])
+            cy = (m["m01"]/m["m00"])
+            target_found = True
+
+            # Error math + P Control
+            setpoint_x = frame_width // 2
+            setpoint_y = frame_height // 2
+            error_x = cx - setpoint_x
+            error_y = cy - setpoint_y
+
+            #Filter for Derivative
+            filtered_error_x = error_x*alpha + (1-alpha)*prev_filter_x
+            filtered_error_y = error_y*alpha + (1-alpha)*prev_filter_y
+            prev_filter_x = filtered_error_x # Stored History of Previous Filter X
+            prev_filter_y = filtered_error_y # Stored History of Previous Filter Y
+
+            #Derivative
+            dx = (filtered_error_x - prev_error_x)/dt
+            dy = (filtered_error_y - prev_error_y)/dt
+
+            dx = np.clip(dx, -50, 50) # Derivative Clamp
+            dy = np.clip(dy, -50, 50) # Derivative Clamp
+
+            prev_error_x = filtered_error_x # stored history of previous errors of X
+            prev_error_y = filtered_error_y # stored history of previous errors of Y
+
+
+            # Normalization error to -1 +1 scale
+            normal_x = filtered_error_x / (frame_width/2)
+            normal_y = filtered_error_y / (frame_height/2)
+
+            # Proportional-Derivative Controller
+            correction_y = KpY * normal_y + KdY*dy
+            correction_x = KpX * normal_x + KdX*dx
+            #Mapping Servos (Proportional-Derivative)
+            servo_x = int(90 - correction_x*40) + 18
+            servo_y = int(90 - correction_y*40) + 3
+            # Servo clamp
+            servo_x = max(0, min(180, servo_x))
+            servo_y = max(0, min(180, servo_y))
+
+            #LOCKING Detection Logic
+            if abs(error_x) < lock_width and abs(error_y) < lock_width:
+                lock_timer += dt #30 FPS or change in time that passed since the last frame
+            else:
+                lock_timer = 0
+
+            # Arduino Communication
+            locked = 1 if lock_timer >= lock_time else 0
+            Arduino.write(f"{int(servo_x)},{servo_y},{locked}\n".encode())
+            time.sleep(0.02)
+            #print(servo_x, servo_y, locked)
+            print("dx:", dx)
+        else:
+            target_found = False
+
+
+
+
+
+    cv2.imshow("Frame", frame)
+    if cv2.waitKey(1) & 0xFF ==ord('q'):
+        break
+
+cam.release()
+cv2.destroyAllWindows()
+
