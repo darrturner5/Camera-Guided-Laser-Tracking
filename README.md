@@ -102,7 +102,7 @@ I think here would be a great time to talk briefly about the buzzer logic:
 *When the timer is greater than or equal to 2 seconds, send 1 over Arduino Serial.*
 
 - The accuracy and timing of this depends on the frames per second of the camera. If you have a 60fps camera, Id suggest doubling the dt to 0.066.
-- I chose 350 pixels because it was wide enough to capture the whole object. Do not be afraid to make the width much higher such as <= 500 pixels depending on the object you may want to track. Small pixels may not activate the logic because my contours and centroid were always moving (mostly due to lighting) so the bigger the better.
+- I chose 350 pixels because it was wide enough to capture the whole object. Do not be afraid to make the width much higher such as <= 500 pixels depending on the object you may want to track. Small pixels values less than 150 may not activate the logic because my contours and centroid were always moving (mostly due to lighting) so the bigger the better.
 
 
 ## Tuning:
