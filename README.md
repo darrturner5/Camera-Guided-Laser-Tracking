@@ -77,8 +77,8 @@ Upon using the (D) Term Ive learned to use Kd gain relatively small. I started m
 [![What does Derivative Noise Amplification look like in a system?](<img width="348" height="553" alt="image" src="https://github.com/user-attachments/assets/60fb20a3-53fb-4ac4-90b5-5e64c725417c" />
 )](https://www.youtube.com/watch?v=Cp3NwTRCM4U)
 
-While most of this occured due to the noise amplification of the random pixels from the camera, The Derivative term is still very sensitive even after the filtering. But did help significantly in the amount of noise that it was amplifying and made it a bit more stable.
-After seeing the dmage that this term can cause, I opted for a clamp that wouldnt exceed -50, 50 pixels per frame.
+While most of this occured due to the noise amplification of the random pixels from the camera, The Derivative term is still very sensitive even after the filtering. But did help significantly in the amount of noise that it was amplifying and made it a bit more stable. I then lowered the gain excessively small to 0.0005 which looks like nothing but reduced most of the jitter.
+After seeing the damage that this term can cause, I opted for a clamp that wouldnt exceed -50, 50 pixels per frame.
 
 I think here would be a great time to talk briefly about the buzzer logic:
 
