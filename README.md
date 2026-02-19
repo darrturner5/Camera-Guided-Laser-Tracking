@@ -159,6 +159,8 @@ The actual construction of the Servos took a lot of trial and error and offsetti
 
 
 - The constants at the end of the code represents the offsetting that Ive done to achieve the laser to lock on fully with the object.
+- Decrease constants (Servos move left)
+- Increase Constants (Servos move right)
 - These constants are different for every build especially since not all with be aligned the same. You will have to do a little tuning there to get it just right.
 - Some systems may need it, some systems might not. it all comes down to how well aligned your pan and tilt servos are.
 - Alternatively, if you have a 3D printer and can design a proper frame, that will kill the need for the offsetting anyways.
