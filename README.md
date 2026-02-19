@@ -108,7 +108,7 @@ I think here would be a great time to talk briefly about the buzzer logic:
 ## Tuning:
  - Started with P Control Tuning only, Kd = 0
  - Tuned until there was slight oscillation but still fast enough to track errors
- - Started with an entrememly low Kd Gain, Slowly build up (Too high gain causes too much amplification)
+ - Started with an extremely low Kd Gain, Slowly build up (Too high gain causes too much amplification)
  - Clamp the Derivative amplification (Protects servos)
 
 ## Challenges
