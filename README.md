@@ -160,9 +160,8 @@ The actual construction of the Servos took a lot of trial and error and offsetti
 - The constants at the end of the code represents the offsetting that Ive done to achieve the laser to lock on fully with the object.
 - These constants are different for every build especially since not all with be aligned the same. You will have to do a little tuning there to get it just right.
 - Some systems may need it, some systems might not. it all comes down to how well aligned your pan and tilt servos are.
-- Alternatively, if you have a 3D printer and can design a proper frame that will reduce the need for the offsetting anyways and get the laser to align properly.
-- One more note, If you can get a proper laser pointer, you do not need a laser driver circuit. ust mount the laser pointer to the Tilt motion.
-- That reduces the need for all that extra wiring thats clumped up in my build.
+- Alternatively, if you have a 3D printer and can design a proper frame, that will reduce the need for the offsetting anyways.
+- One more note, If you can get a proper laser pointer, you do not need a laser driver circuit. ust mount the laser pointer to the Tilt motion. That reduces the need for all that extra wiring thats clumped up in my build.
 
 ## SKILLS DEMONSTRATED
 - Closed Loop Control
