@@ -139,6 +139,7 @@ This is a very exciting project and I am very glad and grateful to be sharing th
 
 
 *MAKE SURE ALL DEVICES SHARE THE SAME GROUND!*
+
 I designed this little breakout board to resemble a breadboard. Although you can still use a breadboard. I added a 25V 1000uF Capacitor in parallel between the (+) Rail and (-) Rail to help with current spiking (Servos may draw a lot of current so watch out for that).
 - 5V RAIL ON RIGHT ( Servos, and Laser driver circuit)
 - Negative Rail (-) on LEFT (Shared Ground. Every device leads back to this!!) (Buzzer, Servos, Laser circuit)
