@@ -92,7 +92,9 @@ I think here would be a great time to talk briefly about the buzzer logic:
             else:
                 lock_timer = 0
 *if the error ( Measured Value - Setpoint) is less than 350 pixels, (meaning the setpoint is very close to the measured value (Object))*
+
 *Start timer*
+
 *if the error is not less than 350 pixels, reset timer.*
 
             locked = 1 if lock_timer >= lock_time else 0
