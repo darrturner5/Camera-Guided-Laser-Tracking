@@ -146,6 +146,8 @@ I designed this little breakout board to resemble a breadboard. Although you can
   ![IMG_8345](https://github.com/user-attachments/assets/6312b93a-f315-4c25-95d4-d18612d6b02b)
 
 
+  ![IMG_8352](https://github.com/user-attachments/assets/5f514127-338f-41fe-be7c-b55d7cf7bd41)
+
 The actual construction of the Servos took a lot of trial and error and offsetting so adjust to your build.
 -  I used Zip ties to hold the two servos together (If you have a better Idea go ahead)
 -  The X servo goes to the bottom. This is the pan motion. It moves left to right
