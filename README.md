@@ -116,7 +116,7 @@ I think here would be a great time to talk briefly about the buzzer logic:
 - Mechanical mounting of the Pan and Tilt Servos 
 - Servo Jitter  (Addeded PD Controller)
 - Derivative kick (Added Clamping)
-- Gain Tuning ( Time Consuming)
+- Gain Tuning ( Trial and Error)
 
 ## How can I improve?
 - Finite State Logic with OLED
