@@ -145,8 +145,6 @@ I designed this little breakout board to resemble a breadboard. Although you can
 - 5V RAIL ON RIGHT ( Servos, and Laser driver circuit)
 - Negative Rail (-) on LEFT (Shared Ground. Every device leads back to this!!) (Buzzer, Servos, Laser circuit)
   ![IMG_8345](https://github.com/user-attachments/assets/6312b93a-f315-4c25-95d4-d18612d6b02b)
-
-
   ![IMG_8352](https://github.com/user-attachments/assets/5f514127-338f-41fe-be7c-b55d7cf7bd41)
 
 The actual construction of the Servos took a lot of trial and error and offsetting so adjust to your build.
@@ -163,7 +161,7 @@ The actual construction of the Servos took a lot of trial and error and offsetti
 - The constants at the end of the code represents the offsetting that Ive done to achieve the laser to lock on fully with the object.
 - These constants are different for every build especially since not all with be aligned the same. You will have to do a little tuning there to get it just right.
 - Some systems may need it, some systems might not. it all comes down to how well aligned your pan and tilt servos are.
-- Alternatively, if you have a 3D printer and can design a proper frame, that will reduce the need for the offsetting anyways.
+- Alternatively, if you have a 3D printer and can design a proper frame, that will kill the need for the offsetting anyways.
 - One more note, If you can get a proper laser pointer, you do not need a laser driver circuit. ust mount the laser pointer to the Tilt motion. That reduces the need for all that extra wiring thats clumped up in my build.
 
 ## SKILLS DEMONSTRATED
