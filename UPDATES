@@ -1,0 +1,11 @@
+## UPDATES
+- Finite State Logic 2/24/26
+The FSM is mapped directly to the timing of my buzzer in python. It works by use if, elif, else statements.
+First I defined the 3 states that I wanted and what numbers I wanted to send over to the serial port to be parsed by the arduino:
+
+      #Finite State Logic Variables
+      Searching = 0
+      Locked = 2
+      Locking = 1
+
+The 
