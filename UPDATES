@@ -86,7 +86,7 @@ I used the FSM to display ON my OLED SSD1306.
 
 Same FSM logic applies inside the Arduino code. Its just now the values we are recieving from Python.
 Heres a demo of how it looks:
-[![IMAGE ALT TEXT HERE]()](https://www.youtube.com/watch?v=XQ5ALZAnPz8
+https://www.youtube.com/watch?v=XQ5ALZAnPz8
 
 
 
