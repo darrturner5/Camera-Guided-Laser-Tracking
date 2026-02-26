@@ -8,4 +8,88 @@ First I defined the 3 states that I wanted and what numbers I wanted to send ove
       Locked = 2
       Locking = 1
 
-The 
+I tied the FSM logic directly to my buzzer logic with its timing.
+
+#LOCKING Detection Logic + Finite State Logic
+            if abs(error_x) < lock_width and abs(error_y) < lock_width:
+                lock_timer += dt #30 FPS or change in time that passed since the last frame
+            else:
+                lock_timer = 0
+
+            if lock_timer == 0:
+                state = Searching
+
+
+            elif lock_timer < 2.0:
+                state = Locking
+
+            else:
+                state = Locked
+
+            locked = 1 if lock_timer >= lock_time else 0
+
+The buzzing logic states that if the error( Measured Value - setpoint) is less than 350 pixels ( my lockwidth) then we start the time.
+We send a 1 over the serial port when the timer is equal to 2.0 (2 seconds). (Buzzer NOISE)
+
+To loop in the FSM, all we need to do is define each of our states. The states that im using is "Searching","Locking","Locked".
+Then we give each state a condition to change.
+When the lock_timer is equal to 0 the system is "Searching". send 0 over serial (Default state)
+We switch states to Locking when the lock_timer is less than 2 seconds. Send 1 over serial
+We switch states to Locked when both these conditions arent true. Send 2 over the Serial.
+
+## PARSING
+For the Arduino parsing, We are adding a new term to be send over the serial port. This means we have to expand our code in python.
+
+       Arduino.write(f"{int(servo_x)},{servo_y},{locked},{state}\n".encode())
+
+*State is our new function that we are sending over*
+
+On the Arduino side this changes a few things up.
+
+      if (Serial.available()) {
+    input = Serial.readStringUntil('\n');
+
+    Serial.println(input);
+
+    int comma1 = input.indexOf(',');
+    int comma2 = input.indexOf(',', comma1 + 1);
+    int comma3 = input.indexOf(',', comma2 + 1);
+
+    if (comma1 > 0 && comma2 > comma1 && comma3 > comma2) { // checks if the commas are in the right place.
+
+      int xAngle = input.substring(0, comma1).toInt();
+      int yAngle = input.substring(comma1 + 1, comma2).toInt();
+      int lock = input.substring(comma2 + 1, comma3).toInt();
+      int state = input.substring(comma3 + 1).toInt();
+
+This is the parsing code. We add a new comma (comma3) because there are now 4 things that we are sending over the serial port.
+The data is separated by commas and come out to look something like this:
+            90,90,1,2
+
+Then we assign each portion to a specific variable. The +1 Is to look after the the previous comma.       
+I used the FSM to display ON my OLED SSD1306.
+
+      display.clearDisplay();
+      display.setCursor(0,0);
+
+      if(state == 0){
+        display.println("NONE");
+      }
+      else if(state == 1){
+        display.println("LOCKING...");
+      }
+      else if(state == 2){
+        display.println("LOCKED");
+      }
+      display.display();
+
+
+Same FSM logic applies inside the Arduino code. Its just now the values we are recieving from Python.
+Heres a demo of how it looks:
+[![IMAGE ALT TEXT HERE]()](https://www.youtube.com/watch?v=XQ5ALZAnPz8
+
+
+
+
+
+
