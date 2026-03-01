@@ -271,6 +271,13 @@ Heres a demo of how it looks:
 ![IMG_8412](https://github.com/user-attachments/assets/c641b4d3-da65-4200-864a-f0aa43346f2c)
 
 
+## OLED SSD SPECS
+- SDA = A4
+- SCK = A5
+- 5V off Arduino pin
+- SHARED GROUND LOOP WITH EVERYTHING!
+
+
 
 
 
