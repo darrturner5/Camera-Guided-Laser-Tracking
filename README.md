@@ -178,6 +178,7 @@ The actual construction of the Servos took a lot of trial and error and offsetti
 ## UPDATES
 
 - Finite State Logic 2/24/26
+  
 The FSM is mapped directly to the timing of my buzzer in python. It works by use if, elif, else statements.
 First I defined the 3 states that I wanted and what numbers I wanted to send over to the serial port to be parsed by the arduino:
 
